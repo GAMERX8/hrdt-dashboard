@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   fetchMedicalStaff,
   calculateKPIs,
@@ -22,16 +22,12 @@ import {
 import {
   Users,
   Activity,
-  Calendar,
   Layers,
   LogOut,
-  UserCheck,
   Clock,
-  CheckSquare,
   RefreshCw,
   Info,
   SlidersHorizontal,
-  ChevronRight,
   TrendingUp,
   Award
 } from 'lucide-react';
@@ -46,19 +42,19 @@ export default function Dashboard({ user, onLogout }) {
   const [selectedContract, setSelectedContract] = useState('All');
   const [selectedGender, setSelectedGender] = useState('All');
 
-  // Fetch data
-  const loadData = async () => {
-    setLoading(true);
-    const data = await fetchMedicalStaff({
-      specialty: selectedSpecialty,
-      contract: selectedContract,
-      gender: selectedGender
-    });
-    setStaffData(data);
-    setLoading(false);
-  };
-
+  // Fetch data inside useEffect to avoid missing dependencies
   useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      const data = await fetchMedicalStaff({
+        specialty: selectedSpecialty,
+        contract: selectedContract,
+        gender: selectedGender
+      });
+      setStaffData(data);
+      setLoading(false);
+    };
+
     loadData();
   }, [selectedSpecialty, selectedContract, selectedGender]);
 

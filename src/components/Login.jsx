@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { loginUser } from '../data/mockData';
 import { Stethoscope, User, Lock, AlertCircle, Loader } from 'lucide-react';
 
@@ -20,7 +20,7 @@ export default function Login({ onLoginSuccess }) {
       } else {
         setError(result.message);
       }
-    } catch (err) {
+    } catch {
       setError('Ocurrió un error al intentar iniciar sesión.');
     } finally {
       setLoading(false);
